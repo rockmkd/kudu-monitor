@@ -6,20 +6,25 @@ import { switchMap } from 'rxjs/operators';
 @Injectable({ providedIn: 'root' })
 export class MetricService {
 
-  readonly API_URL = "localhost";
+  private readonly API_URL = "localhost";
 
   constructor(private httpClient: HttpClient) { }
 
-  public metric() {
-    this.getHostList().pipe(
+  public allMetric(): Observable<any> {
+    return this.getHostList().pipe(
       switchMap( (hosts:string[]) => {
-        return hosts;
+        console.log(hosts);
+        return this.getMetrics(hosts[0]);
       })
-    );
+    )
   }
 
   private getHostList(): Observable<string[]> {
     return this.httpClient.get<string[]>(`${this.API_URL}/hosts`);
+  }
+
+  private getMetrics(hostname:string): Observable<object> {
+    return this.httpClient.get<string[]>(`${this.API_URL}/metric?host=${hostname}`);
   }
 
 }

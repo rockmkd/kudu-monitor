@@ -8,8 +8,9 @@ export class MockInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (req.url.endsWith('/hosts')) {
       return of(new HttpResponse({ body: MOCK_DATA.hosts }));
-    } else if (req.url.endsWith('/metric')) {
-
+    } else if (req.url.indexOf('/metric') > -1) {
+      console.log(req.body);
+      return of(new HttpResponse({ body: 'metric' }));
     } else {
       return next.handle(req);
     }
