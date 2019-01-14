@@ -8,11 +8,11 @@ export const MOCK_DATA = {
         'mock-server1': [
             {
                 "type": "tablet",
-                "id": "40905d4ba75e41558996b74bb9c0c3a0",
+                "id": "40905d4ba75e41558996b74bb9c0c3a1",
                 "attributes": {
                     "partition": "HASH (evnt_offr_id) PARTITION 1",
-                    "table_name": "impala::cms.kecev_event_offer_rec_l",
-                    "table_id": "c5a07bc4c1ae46e29d7eac7ecece4c09"
+                    "table_name": "impala::cbs.tdo_applog",
+                    "table_id": "12345dfadsf"
                 },
                 "metrics": [
                     {
@@ -535,8 +535,8 @@ export const MOCK_DATA = {
                 "id": "40905d4ba75e41558996b74bb9c0c3a0",
                 "attributes": {
                     "partition": "HASH (evnt_offr_id) PARTITION 1",
-                    "table_name": "impala::cms.kecev_event_offer_rec_l",
-                    "table_id": "c5a07bc4c1ae46e29d7eac7ecece4c09"
+                    "table_name": "impala::tdo.corebank1",
+                    "table_id": "23498sadkfj"
                 },
                 "metrics": [
                     {
