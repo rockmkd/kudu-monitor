@@ -1,16 +1,38 @@
 <div class="main-container">
     <header class="header header-6">
-        헤더
+        <div class="branding">
+            <img src="assets/kudu-logo.png" width="80">
+            <span class="title">Kudu Monitor</span>
+        </div>
+        
     </header>
     <nav class="subnav">
-        sub nav
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Tablet Size</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Tablet Count</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Request</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Memory</a>
+            </li>
+        </ul>
     </nav>
-    <div class="content-container">
+    <div class="content-container">        
         <div class="content-area">
-            content area
+        <clr-datagrid>
+                <clr-dg-column>User ID</clr-dg-column>
+                <clr-dg-column>Name</clr-dg-column>
+                <clr-dg-column>Creation date</clr-dg-column>
+                <clr-dg-column>Favorite color</clr-dg-column>
+        </clr-datagrid>
         </div>
         <!-- <nav class="sidenav">
             side nav
-        </nav> -->
+        </nav>  -->
     </div>
 </div>

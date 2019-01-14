@@ -22,10 +22,12 @@
     "@clr/angular": "^1.0.3-patch",
     "@clr/icons": "^1.0.3-patch",
     "@clr/ui": "^1.0.3-patch",
+    "@types/underscore": "^1.8.9",
     "@webcomponents/custom-elements": "^1.0.0",
     "core-js": "^2.5.4",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
+    "underscore": "^1.9.1",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

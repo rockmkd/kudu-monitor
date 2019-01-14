@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { MetricService, Metric } from './metric.service';
+import * as _ from 'underscore';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +15,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.metricService.allMetric().subscribe(data => this.metrics = data);
+    this.metricService.allMetric().subscribe(data => {
+      this.metrics = data;
+      console.log( data );
+   });
   }
 
 }

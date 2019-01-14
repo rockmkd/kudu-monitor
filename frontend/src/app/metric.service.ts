@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin, zip, of } from 'rxjs';
-import { switchMap, flatMap, map, filter, toArray } from 'rxjs/operators';
+import { switchMap, flatMap, map, filter, toArray, mergeAll, tap } from 'rxjs/operators';
 import { join } from 'path';
 
 @Injectable({ providedIn: 'root' })
@@ -16,8 +16,7 @@ export class MetricService {
       switchMap(hosts => {
         return forkJoin(hosts.map(host => this.getMetrics(host)));
       }),
-      flatMap((rawMetrics: RawMetric[]) => rawMetrics),
-      flatMap((rawMetric: RawMetric) => rawMetric),
+      mergeAll(), mergeAll(),
       filter((rawMetric: RawMetric) => rawMetric.type === 'tablet'),
       map((tableAttr: RawMetric): Metric => ({
         hostname: 'empty',

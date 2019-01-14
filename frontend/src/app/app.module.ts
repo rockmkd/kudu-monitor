@@ -13,6 +13,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     AppComponent
   ],
   imports: [
+    ClarityModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
