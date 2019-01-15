@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin, zip, of } from 'rxjs';
 import { switchMap, flatMap, map, filter, toArray, mergeAll, tap } from 'rxjs/operators';
 import { join } from 'path';
+import { Items } from '@clr/angular/data/datagrid/providers/items';
 
 @Injectable({ providedIn: 'root' })
 export class MetricService {
@@ -19,7 +20,7 @@ export class MetricService {
       mergeAll(), mergeAll(),
       filter((rawMetric: RawMetric) => rawMetric.type === 'tablet'),
       map((tableAttr: RawMetric): Metric => ({
-        hostname: 'empty',
+        hostname: tableAttr.hostname,
         table: tableAttr.attributes.table_name as string,
         id: tableAttr.attributes.table_id as string,
         partition: tableAttr.attributes.partition as string,
@@ -34,8 +35,10 @@ export class MetricService {
     return this.httpClient.get<string[]>(`${this.API_URL}/hosts`);
   }
 
-  private getMetrics(hostname: string): Observable<object> {
-    return this.httpClient.post<string[]>(`${this.API_URL}/metric`, { hostname: hostname });
+  private getMetrics(hostname: string): Observable<any[]> {
+    return this.httpClient.post<any[]>(`${this.API_URL}/metric`, { hostname: hostname }).pipe(
+      map((data: any[]) => data.map(item => ({...item, hostname: hostname})))
+    );
   }
 
 }
@@ -52,8 +55,9 @@ export interface Metric {
 }
 
 interface RawMetric {
-  type: string,
-  id: string,
-  attributes: any,
-  metrics: any[]
+  hostname: string;
+  type: string;
+  id: string;
+  attributes: any;
+  metrics: any[];
 }

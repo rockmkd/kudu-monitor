@@ -9,7 +9,9 @@ import * as _ from 'underscore';
 })
 export class AppComponent implements OnInit {
 
-  metrics: Metric[];
+  private metrics: Metric[];
+  metricByHost: {[hostname: string]: Metric[]};
+  // metricByHost: any;
   tables: Table[];
   tableTree: any[];
 
@@ -20,7 +22,7 @@ export class AppComponent implements OnInit {
     this.metricService.allMetric().subscribe(data => {
       this.metrics = data;
       this.tables = this.retriveTableName(data);
-      this.tableTree = _.uniq(this.tables, 'dbName').map(table => table.dbName).map( dbName => {
+      this.tableTree = _.uniq(this.tables, 'dbName').map(table => table.dbName).map(dbName => {
         return {
           name: dbName,
           tables: this.tables.filter(table => table.dbName === dbName).map(table => ({
@@ -31,7 +33,7 @@ export class AppComponent implements OnInit {
         };
       });
 
-      console.log( this.tableTree );
+      this.refreshMetrics();
     });
   }
 
@@ -41,6 +43,11 @@ export class AppComponent implements OnInit {
       tableName: table.split('.')[1],
       fullName: table
     }));
+  }
+
+  private refreshMetrics() {
+    this.metricByHost = _.groupBy(this.metrics, 'hostname');
+    console.log( this.metricByHost );
   }
 
 }
