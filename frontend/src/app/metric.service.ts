@@ -25,7 +25,8 @@ export class MetricService {
         id: tableAttr.attributes.table_id as string,
         partition: tableAttr.attributes.partition as string,
         diskSize: tableAttr.metrics.find(metric => metric.name === 'on_disk_data_size').value || 0,
-        rowCount: tableAttr.metrics.find(metric => metric.name === 'memrowset_size').value || 0
+        rowCount: tableAttr.metrics.find(metric => metric.name === 'memrowset_size').value || 0,
+        state: tableAttr.metrics.find(metric => metric.name === 'state').value || 'UNKNWON'
       })),
       toArray()
     );
@@ -51,6 +52,7 @@ export interface Metric {
   partition: string;
   diskSize: number;
   rowCount: number;
+  state: string;
 
 }
 

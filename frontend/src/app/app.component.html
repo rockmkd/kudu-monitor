@@ -15,25 +15,28 @@
     </nav>
     <div class="content-container">        
         <div class="content-area">
-        <clr-datagrid>
-            <clr-dg-column>Host</clr-dg-column>
-            <clr-dg-column>Disk Size</clr-dg-column>
-            <clr-dg-column>Tablet Count</clr-dg-column>
-        </clr-datagrid>
-        <clr-dg-row *ngFor="let user of users">
-            <clr-dg-cell>{{user.id}}</clr-dg-cell>
-            <clr-dg-cell>{{user.name}}</clr-dg-cell>
-            <clr-dg-cell>{{user.creation | date}}</clr-dg-cell>
-            <clr-dg-cell>{{user.color}}</clr-dg-cell>
-        </clr-dg-row>
+            <clr-datagrid>
+                <clr-dg-column>Host</clr-dg-column>
+                <clr-dg-column>Table Count</clr-dg-column>
+                <clr-dg-column>Tablet Count(Running ratio)</clr-dg-column>
+                <clr-dg-column>Disk Size</clr-dg-column>
+            
+                <clr-dg-row *ngFor="let metric of resultMetrics">
+                    <clr-dg-cell>{{metric.hostname}}</clr-dg-cell>
+                    <clr-dg-cell>{{metric.tableCount}}</clr-dg-cell>
+                    <clr-dg-cell>{{metric.tabletCount}}</clr-dg-cell>
+                    <clr-dg-cell>{{metric.diskSize}}</clr-dg-cell>
+                </clr-dg-row>
+                <clr-dg-footer>후후 호호호 </clr-dg-footer>
+            </clr-datagrid>
         </div>
         <nav class="sidenav">
             <clr-tree-node [clrExpanded]="true">
                 All Tables
                 <clr-tree-node *ngFor="let db of tableTree" [clrExpanded]="true">
                     {{db.name}}
-                    <clr-tree-node *ngFor="let table of db.tables" 
-                                    [clrSelected]="table.enabled" (clrSelectedChange)="table.enabled = !!$event">
+                    <clr-tree-node *ngFor="let table of db.tables" [(clrSelected)]="table.enabled"
+                    (clrSelectedChange)="onTableSelectedChange($event)" >
                         {{table.name}}
                     </clr-tree-node>
                 </clr-tree-node>

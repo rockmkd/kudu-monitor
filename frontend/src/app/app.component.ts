@@ -10,10 +10,11 @@ import * as _ from 'underscore';
 export class AppComponent implements OnInit {
 
   private metrics: Metric[];
-  metricByHost: {[hostname: string]: Metric[]};
+  private metricByHost: { [hostname: string]: Metric[] };
+  resultMetrics: any[];
   // metricByHost: any;
   tables: Table[];
-  tableTree: any[];
+  tableTree: TableTree[];
 
   constructor(private metricService: MetricService) {
   }
@@ -46,14 +47,37 @@ export class AppComponent implements OnInit {
   }
 
   private refreshMetrics() {
+    const selectedTables: string[] = _.flatten(this.tableTree.map(tree => tree.tables
+      .filter(table => table.enabled)
+      .map(table => table.fullName))
+    );
+
     this.metricByHost = _.groupBy(this.metrics, 'hostname');
-    console.log( this.metricByHost );
+    this.resultMetrics = _.keys(this.metricByHost).map(key => {
+      const metrics = this.metricByHost[key].filter(metric => selectedTables.indexOf(metric.table) > -1);
+      return {
+        hostname: key,
+        tableCount: _.uniq(metrics, 'table').length,
+        tabletCount: metrics.length,
+        runningTabletCount: metrics.filter(metric => metric.state === 'RUNNING').length,
+        diskSize: metrics.reduce((prev, metric) => prev + metric.diskSize, 0)
+      };
+    });
+    console.log(this.resultMetrics);
   }
 
+  onTableSelectedChange(event) {
+    this.refreshMetrics();
+  }
 }
 
 interface Table {
   dbName: string;
   tableName: string;
   fullName: string;
+}
+
+interface TableTree {
+  name: string;
+  tables: { name: string, fullName: string, enabled: boolean }[];
 }

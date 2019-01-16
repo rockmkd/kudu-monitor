@@ -21,7 +21,7 @@ export const MOCK_DATA = {
                     },
                     {
                         "name": "on_disk_data_size",
-                        "value": 0
+                        "value": 100
                     },
                     {
                         "name": "rows_inserted",
@@ -1071,7 +1071,7 @@ export const MOCK_DATA = {
                     },
                     {
                         "name": "on_disk_data_size",
-                        "value": 0
+                        "value": 123
                     },
                     {
                         "name": "rows_inserted",
@@ -1595,7 +1595,7 @@ export const MOCK_DATA = {
                     },
                     {
                         "name": "on_disk_data_size",
-                        "value": 0
+                        "value": 55
                     },
                     {
                         "name": "rows_inserted",
@@ -2121,7 +2121,7 @@ export const MOCK_DATA = {
                     },
                     {
                         "name": "on_disk_data_size",
-                        "value": 0
+                        "value": 5923
                     },
                     {
                         "name": "rows_inserted",
@@ -2645,7 +2645,7 @@ export const MOCK_DATA = {
                     },
                     {
                         "name": "on_disk_data_size",
-                        "value": 0
+                        "value": 523
                     },
                     {
                         "name": "rows_inserted",
